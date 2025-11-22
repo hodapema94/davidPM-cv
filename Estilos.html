@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Programas y Lenguajes manejados — Hosman David Pérez</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="gauges.css">
+</head>
+
+<body>
+
+    <div class="skills-container">
+        <h1>Habilidades Técnicas</h1>
+        <p>Detalle por software</p>
+
+        <div class="gauges-grid">
+
+            <div class="gauge-card">
+                <div class="gauge" data-value="90" data-label="Power BI"></div>
+            </div>
+
+            <div class="gauge-card">
+                <div class="gauge" data-value="85" data-label="SQL"></div>
+            </div>
+
+            <div class="gauge-card">
+                <div class="gauge" data-value="95" data-label="Excel"></div>
+            </div>
+
+            <div class="gauge-card">
+                <div class="gauge" data-value="80" data-label="DAX / Power Query"></div>
+            </div>
+
+            <div class="gauge-card">
+                <div class="gauge" data-value="75" data-label="Java"></div>
+            </div>
+
+            <div class="gauge-card">
+                <div class="gauge" data-value="65" data-label="HTML"></div>
+            </div>
+
+        </div>
+
+        <br><br>
+        <a href="index.html" class="back-btn">← Volver al CV</a>
+    </div>
+
+
+    <script>
+        document.querySelectorAll(".gauge").forEach(gauge => {
+
+            let finalVal = Number(gauge.dataset.value);
+            let label = gauge.dataset.label;
+
+            // Determinar color por nivel
+            let color = "#ef233c"; // rojo
+
+            if (finalVal > 80) color = "#4caf50"; // verde
+            else if (finalVal > 60) color = "#f3c623"; // amarillo
+
+            // Rellenar el SVG
+            gauge.innerHTML = `
+            <svg class="gauge-svg" viewBox="0 0 100 60">
+              <!-- Arco de fondo -->
+              <path d="M10 50 A40 40 0 1 1 90 50"
+                    fill="none"
+                    stroke="#333"
+                    stroke-width="8"/>
+        
+              <!-- Arco dinámico -->
+              <path class="arc"
+                    d="M10 50 A40 40 0 1 1 90 50"
+                    fill="none"
+                    stroke="${color}"
+                    stroke-width="8"
+                    stroke-dasharray="0, 200"/>
+        
+              <!-- Aguja -->
+              <line class="needle"
+                    x1="50" y1="50"
+                    x2="50" y2="10"
+                    stroke="white"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                    transform="rotate(-90 50 50)"/>
+            </svg>
+        
+            <div class="gauge-value">0%</div>
+            <div class="gauge-label">${label}</div>
+          `;
+
+            // Elementos animables
+            const arc = gauge.querySelector(".arc");
+            const needle = gauge.querySelector(".needle");
+            const valText = gauge.querySelector(".gauge-value");
+
+            // Animar progresivamente
+            let current = 0;
+
+            const animate = () => {
+                if (current <= finalVal) {
+
+                    // Actualizar texto
+                    valText.textContent = current + "%";
+
+                    // Longitud del arco (máximo 126 del semicírculo)
+                    const arcLength = (current / 100) * 126;
+                    arc.setAttribute("stroke-dasharray", `${arcLength}, 200`);
+
+                    // Rotar aguja: -90° a +90° según valor
+                    const rotation = -90 + (current * 1.8);
+                    needle.setAttribute("transform", `rotate(${rotation} 50 50)`);
+
+                    current++;
+                    requestAnimationFrame(animate);
+                }
+            };
+
+            animate();
+        });
+    </script>
+
+
+
+
+</body>
+
+</html>

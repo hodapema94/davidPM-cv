@@ -1,0 +1,46 @@
+.skills-container {
+    padding: 40px;
+    max-width: 900px;
+    margin: auto;
+    color: var(--text);
+    text-align: center;
+}
+
+.gauges-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    margin-top: 40px;
+    place-items: center;
+}
+
+.gauge-card {
+    background: var(--glass);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+.gauge-svg {
+    width: 180px;
+    height: 100px;
+}
+
+.gauge-value {
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+.gauge-label {
+    margin-top: 4px;
+    font-size: 15px;
+    color: var(--muted);
+}
+
+.back-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+}
